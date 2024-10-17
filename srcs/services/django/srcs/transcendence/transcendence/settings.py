@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 from pathlib import Path
 import os, sys
 import mimetypes
-from pythonjsonlogger import jsonlogger
+# from pythonjsonlogger import jsonlogger
 
 mimetypes.add_type("text/css", ".css", True)
 mimetypes.add_type("text/html", ".html", True)
@@ -29,12 +29,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = [os.environ.get('HOST'),'django', 'localhost']
+ALLOWED_HOSTS = [os.environ.get('HOST'), 'django']
 
 # Generate a list of all possible ports for localhost
-CSRF_TRUSTED_ORIGINS = ['https://localhost'] + [f'https://localhost:{port}' for port in range(65536)] + [os.environ.get('HOST')]
+CSRF_TRUSTED_ORIGINS = ['https://localhost']
 
 # Application definition
 
@@ -46,7 +46,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'daphne',
     'friendship',
-    'pong.apps.PongConfig',
+    'pong',
+    'game_managment',
+    'game_realtime',
+    'pong_views',
     'django.contrib.staticfiles',
 ]
 
@@ -128,7 +131,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 AUTHENTICATION_BACKENDS = ["django.contrib.auth.backends.ModelBackend"]
 
-AUTH_USER_MODEL = 'pong.BaseUser'
+AUTH_USER_MODEL = 'pong_views.BaseUser'
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
@@ -154,37 +157,37 @@ MEDIA_URL = '/media/'
 
 # Logs monitoring using ELK stack
 
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-	'formatters': {
-		'json': {
-			'()': jsonlogger.JsonFormatter,
-			'format': '%(levelname)s %(asctime)s %(module)s %(message)s',
-        },
-    },
-    'handlers': {
-        'logstash': {
-            'level': 'DEBUG',
-            'class': 'logstash.TCPLogstashHandler',
-            'host': 'logstash',  # Logstash server IP address
-            'port': 5044,         # Logstash port
-            'version': 1,
-        },
-        'console': {
-            'level': 'INFO',
-            'class': 'logging.StreamHandler',
-            'stream': sys.stdout,
-        },
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['logstash', 'console'],
-            'level': 'INFO',
-            'propagate': True,
-        },
-    },
-}
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': False,
+# 	'formatters': {
+# 		'json': {
+# 			'()': jsonlogger.JsonFormatter,
+# 			'format': '%(levelname)s %(asctime)s %(module)s %(message)s',
+#         },
+#     },
+#     'handlers': {
+#         'logstash': {
+#             'level': 'DEBUG',
+#             'class': 'logstash.TCPLogstashHandler',
+#             'host': 'logstash',  # Logstash server IP address
+#             'port': 5044,         # Logstash port
+#             'version': 1,
+#         },
+#         'console': {
+#             'level': 'INFO',
+#             'class': 'logging.StreamHandler',
+#             'stream': sys.stdout,
+#         },
+#     },
+#     'loggers': {
+#         'django': {
+#             'handlers': ['logstash', 'console'],
+#             'level': 'INFO',
+#             'propagate': True,
+#         },
+#     },
+# }
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

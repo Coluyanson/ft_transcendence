@@ -4,7 +4,7 @@ import asyncio
 from asgiref.sync import sync_to_async
 from datetime import datetime
 from .game_class import Match
-from .models import Match as ModelMatch, BaseUser, Tournament, TournamentPartecipant
+from pong_views.models import Match as ModelMatch, BaseUser, Tournament, TournamentPartecipant
 from channels.db import database_sync_to_async
 
 class MatchManager:

@@ -11,4 +11,3 @@ django-friendship
 Pillow
 python-logstash
 python-json-logger
-uvicorn

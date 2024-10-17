@@ -3,9 +3,9 @@ import uuid, json, pdb, asyncio
 from asgiref.sync import sync_to_async
 from asgiref.sync import async_to_sync
 
-from .game_class import Match
-from .match_manager import MatchManager
-from .models import BaseUser
+from game_managment.game_class import Match
+from game_managment.match_manager import MatchManager
+from pong_views.models import BaseUser
 
 from django.db.models import F
 from channels.db import database_sync_to_async
