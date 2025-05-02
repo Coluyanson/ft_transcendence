@@ -274,6 +274,8 @@ class MatchManager:
         # Save the tournament object asynchronously
         tournament.save()
 
+    # region set_alias_name(cls, match)
+    # database operations
     @classmethod
     def set_alias_name(cls, match: Match):
         print("Setting alias name")
@@ -312,6 +314,7 @@ class MatchManager:
             print(f"Error getting match: {e}")
             return
 
+    # region game_init(cls, match)
     @classmethod
     async def game_init(cls, match: Match):
         print("Game init")
@@ -339,8 +342,8 @@ class MatchManager:
             'alias_two' : match.player2.consumer.alias,
         })
 
-    #region game_loop
-
+    # region game_loop(cls, match)
+    # database operations
     @classmethod
     async def game_loop(cls, match: Match):
         print("Game loop")

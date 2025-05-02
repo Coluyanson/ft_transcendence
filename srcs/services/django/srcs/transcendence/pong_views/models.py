@@ -1,11 +1,11 @@
 import os
+import datetime
+
 from django.db import models
 from django.conf import settings
 from django.utils import timezone
-
-import datetime
-
 from django.contrib.auth.models import AbstractUser
+
 
 class BaseUser(AbstractUser):
 	level = models.FloatField(default=0)
@@ -59,16 +59,6 @@ class Match(models.Model):
 
 	def __str__(self):
 		return f"{self.player1} vs {self.player2}"
-
-# class TournamentMatch(models.Model):
-# 	tournament = models.ForeignKey(Tournament, related_name='tournament_of_match', on_delete=models.CASCADE)
-# 	match = models.ForeignKey(Match, related_name='match_of_tournament', on_delete=models.CASCADE)
-
-# 	class Meta:
-# 		unique_together = ('match', 'tournament')
-# 		ordering = ['tournament']
-# 		verbose_name = 'Tournament Match'
-# 		verbose_name_plural = 'Tournament Matches'
 
 class Group(models.Model):
 	base_users = models.ManyToManyField(BaseUser)

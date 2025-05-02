@@ -5,7 +5,7 @@ from . import views
 from django.conf import settings
 from django.conf.urls.static import static
 
-app_name= 'pong'
+app_name= 'pong_views'
 
 urlpatterns = [
     # Index
@@ -58,6 +58,9 @@ urlpatterns = [
     path('chat/', views.chat_index, name='chat'),
     path('notification/<str:username>/', views.notification, name='notification'),
     path('friend_template/', views.friend_template, name='friend_template'),
+
+    # Auth service
+    path('auth/', views.auth, name='auth'),
 ]
 
 # To serve media files in development, because they are not served by default in development

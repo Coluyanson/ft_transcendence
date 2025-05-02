@@ -309,35 +309,6 @@ class ProfileView(View):
 		}
 		return JsonResponse(data)
 
-# class SettingsView(View):
-# 	template_name = 'pong/form.html'
-
-# 	def get(self, request, setting):
-# 		if not request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-# 			return HttpResponseRedirect(reverse('pong:index'))
-# 		form_class = SETTINGS_FORM[setting]
-# 		if form_class is None:
-# 			return HttpResponseNotFound()
-# 		form = form_class(user=request.user)
-# 		return render(request, self.template_name, {
-# 			'form' : form,
-# 			'id' : form.id,
-# 		})
-# 	def post(self, request, setting):
-# 		form_class = SETTINGS_FORM[setting]
-# 		if form_class is None:
-# 			return HttpResponseNotFound()
-# 		form = form_class(request.POST)
-# 		if form.is_valid():
-# 			return JsonResponse({'success': True, 'redirect': '/'})
-# 		else:
-# 			context = {
-# 				'form' : form,
-# 				'id' : form.id,
-# 			}
-# 			form_html = render(request, self.template_name, context).content.decode('utf-8')
-# 			return JsonResponse({'success': False, 'form_html': form_html})
-
 def chat_index(request):
 	return render(request, 'pong/chat.html')
 
@@ -839,21 +810,6 @@ def handle_uploaded_file(file):
 			destination.write(chunk)
 	return new_file_name
 
-# class ImageUpload(View):
-# 	def get(self, request):
-# 		form = ImageUploadForm()
-# 		return render(request, 'pong/image_form.html', {'form' : form})
-# 	def post(self, request):
-# 		form = ImageUploadForm(request.POST, request.FILES)
-# 		if form.is_valid():
-# 			file_name = handle_uploaded_file(request.FILES['image'])
-# 			user: BaseUser = request.user
-# 			user.image = settings.MEDIA_URL + file_name
-# 			user.save()
-# 			return HttpResponse("Avatar Uploaded!")
-# 		return render(request, 'pong/image_form.html', {'form': form})
-
-
 @login_required(login_url='/')
 def change_image(request):
 	if request.method == 'POST':
@@ -927,7 +883,7 @@ def notification(request, username):
         f"notifications_{str(user.id)}",
         {
             "type": "send_notification",
-            "message": {"message": "sono una puttana"}
+            "message": {"message": "notification"}
         }
     )
 	return HttpResponse('Notification sent')
@@ -949,3 +905,9 @@ def get_matches(request):
 				'date' : match.date,
 			})
 		return JsonResponse(data={'matches' : match_list})
+	
+
+# region auth_microservices
+
+def auth(request):
+	return HttpResponse("This is the protected view")

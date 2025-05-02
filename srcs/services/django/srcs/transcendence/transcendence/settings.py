@@ -31,7 +31,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [os.environ.get('HOST'), 'django']
+ALLOWED_HOSTS = [os.environ.get('HOST'), 'django', 'http://localhost', 'localhost']
 
 # Generate a list of all possible ports for localhost
 CSRF_TRUSTED_ORIGINS = ['https://localhost']
@@ -58,6 +58,7 @@ MIDDLEWARE_CLASSES = (
 )
 
 MIDDLEWARE = [
+    # 'pong_views.middleware.CustomLoginMiddleware',              # Custom middleware
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -154,6 +155,23 @@ STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 MEDIA_URL = '/media/'
+
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': False,
+#     'handlers': {
+#         'console': {
+#             'class': 'logging.StreamHandler',
+#         },
+#     },
+#     'loggers': {
+#         # Configure the logger for your middleware module
+#         'pong_views.middleware': {
+#             'handlers': ['console'],
+#             'level': 'INFO',  # Set this to DEBUG for more detailed logs
+#         },
+#     },
+# }
 
 # Logs monitoring using ELK stack
 

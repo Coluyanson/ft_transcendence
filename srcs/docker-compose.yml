@@ -14,11 +14,8 @@ services:
     volumes:
       - static-files:/var/www/django-files/static
       - media-files:/var/www/django-files/media
-    depends_on:
-      - django
     networks:
       - transcendence-network
-
 
   # django service
   django:
@@ -49,6 +46,8 @@ services:
     restart: unless-stopped
     networks:
       - transcendence-network
+    ports:
+      - "8000:8000"
     # stdin_open: true
     # tty: true
 
