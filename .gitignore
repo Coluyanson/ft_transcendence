@@ -8,3 +8,6 @@ migrations/
 
 media/*
 srcs/volumes/
+
+
+.venv

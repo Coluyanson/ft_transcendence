@@ -142,7 +142,7 @@ class CallbackView(View):
 		state = data['state']
 
 		if state != self.request.session['state']:
-			return HttpResponseRedirect(reverse('pong:index'))
+			return HttpResponseRedirect(reverse('pong_views:index'))
 		else:
 			del self.request.session['state']
 
@@ -172,13 +172,13 @@ class CallbackView(View):
 			user = BaseUser.objects.get(email=email)
 			login(request, user)
 		elif BaseUser.objects.filter(username=username).exists():
-			return HttpResponseRedirect(reverse('pong:index'))
+			return HttpResponseRedirect(reverse('pong_views:index'))
 		else:
 			user = BaseUser.objects.create_user(username=username, email=email, password=str(uuid.uuid4()))
 			user.image = image
 			user.save()
 			login(request, user)
-		return HttpResponseRedirect(reverse('pong:index'))
+		return HttpResponseRedirect(reverse('pong_views:index'))
 
 
 class IndexView(TemplateView):
@@ -292,14 +292,14 @@ class LogoutView(TemplateView):
 		try:
 			del request.session['user']
 		except:
-			return HttpResponseRedirect(reverse('pong:index'))
-		return HttpResponseRedirect(reverse('pong:index'))
+			return HttpResponseRedirect(reverse('pong_views:index'))
+		return HttpResponseRedirect(reverse('pong_views:index'))
 
 class ProfileView(View):
 	def get(self, request, username):
 		is_ajax = request.headers.get('X-Requested-With') == 'XMLHttpRequest'
 		if not is_ajax:
-			return HttpResponseNotFound(reverse('pong:index'))
+			return HttpResponseNotFound(reverse('pong_views:index'))
 		user = get_object_or_404(BaseUser, username=username)
 		data = {
 			'username' : user.username,
@@ -331,10 +331,10 @@ def authenticated(request):
 		json_res = {'authenticated': authenticated}
 		# string = json.dumps(json_res)
 		return JsonResponse(json_res)
-	return(HttpResponseRedirect(reverse('pong:index')))
+	return(HttpResponseRedirect(reverse('pong_views:index')))
 
 def personal_profile(request):
-	return HttpResponseRedirect(reverse('pong:profile/' + request.user.get_username()))
+	return HttpResponseRedirect(reverse('pong_views:profile/' + request.user.get_username()))
 
 def home(request):
 	if request.method == 'GET':
