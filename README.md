@@ -32,7 +32,6 @@ This project is a containerized Django application using Docker. It includes the
 ## Prerequisites
 Before you begin, ensure you have met the following requirements:
 - You have installed `docker` and `docker compose`
-- You have installed `make` command 
 - You have a 42 API client ID and secret for OAuth integration.
 
 # Setup
@@ -44,7 +43,7 @@ cd <repository-directory>
 ```
 
 ### Environment Variables
-Create a `.env` file in the srcs directory and add the necessary environment variables:
+Create a `.env` file next to `docker-compose.yml` (project root) and add the necessary environment variables:
 ```
 POSTGRES_DB=<your_db_name>
 POSTGRES_USER=<your_db_user>
@@ -58,23 +57,19 @@ HOST=<host>
 INTRA_OAUTH_CLIENT_ID=<clientID 42API> 
 INTRA_OAUTH_SECRET=<secret 42API>
 ```
-Note: you can download and run the project withouth having a 42API app but you can't login using the 42 API
+Note: you can download and run the project without having a 42API app but you can't login using the 42 API
 
-### Build and Run Containers with make
+### Build and Run Containers with Docker Compose
+From the repository root:
 ```sh
-make
-```
-or
-```sh
-cd srcs
-docker compose up --build
+docker compose up -d --build
 ```
 
 ## Services
 
 ### Django
 - Accessible through nginx at `https://localhost:443/` or `http://localhost/`
-- Main application code is in the `srcs/services/django/srcs/` directory.
+- Main application code is in the `services/django/` directory.
 
 ### Nginx
 - Acts as a reverse proxy.
@@ -93,12 +88,8 @@ docker compose up --build
 - Login with the superuser credentials.
 
 ## Stopping the Containers
+From the repository root:
 ```sh
-make stop
-```
-or
-```sh
-cd srcs
 docker compose down
 ```
 ## Contributing
