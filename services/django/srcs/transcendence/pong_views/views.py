@@ -17,7 +17,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 from friendship.models import Friend, Follow, Block, FriendshipRequest
 
-from .models import BaseUser, Tournament, Match
+from .models import BaseUser, Tournament, Match, TournamentPartecipant
 
 @login_required(login_url='/')
 def send_friend_request(request, username):
